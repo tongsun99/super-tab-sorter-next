@@ -14,7 +14,8 @@ Prepared 2026-10-22. The publisher manually confirms review submission and publi
 - Package: `dist/super-tab-sorter-next-v0.1.0.zip`
 - Icon: `dist/store-assets/icon-128.png`
 - Small promotional tile: `dist/store-assets/promo-440x280.png`
-- English screenshot: `dist/store-assets/screenshot-en.png` (1280 × 800)
+- Marquee promotional tile: `dist/store-assets/promo-1400x560.png` (1400 × 560)
+- English screenshot (also global/default screenshot): `dist/store-assets/screenshot-en.png` (1280 × 800)
 - Chinese screenshot: `dist/store-assets/screenshot-zh.png` (1280 × 800)
 - Distribution: Free, public; no in-app purchases, ads, or login required.
 
