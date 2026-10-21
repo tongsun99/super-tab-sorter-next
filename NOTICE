@@ -1,0 +1,19 @@
+Super Tab Sorter Next
+
+Derived from Super Tab Sorter and Simple Tab Sorter by Peter White (pwhite2).
+https://github.com/pwhite2/super-tab-sorter
+https://github.com/pwhite2/simple-tab-sorter
+Upstream code and its history are retained under GNU GPL version 3.
+
+Modifications by tongsun99:
+2026-02-20: auto-sort, short intervals, newest-tab deduplication, icon and popup fixes.
+2026-10-21: Next branding, bilingual single-page settings, onboarding, privacy
+disclosures, replacement icons, and release packaging. Sorting algorithms retained.
+Copyright (c) 2026 tongsun99, for these modifications. Licensed under GPL-3.0.
+
+This is an independent derivative, not an official release by Peter White.
+The original icon was designed by Logan White; Next uses a new icon instead.
+
+Free software: you may redistribute and modify it under GNU GPL v3.
+Provided WITHOUT ANY WARRANTY; see the accompanying LICENSE.
+See THIRD_PARTY_NOTICES for bundled dependency notices and SOURCE.html for source.

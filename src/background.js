@@ -1,3 +1,5 @@
+// Super Tab Sorter Next — derived from Super Tab Sorter by Peter White.
+// Modified by tongsun99, 2026-02-20 and 2026-10-21. GPL-3.0; see LICENSE and NOTICE.
 // See https://publicsuffix.org and https://github.com/lupomontero/psl for psl library details
 import './psl.min.js';
 
@@ -113,13 +115,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
             installedVersion: thisVersion,
             newInstall: true,
             newUpdate: false
-        }, function () {
-            // Prompt for (optional) uninstall feedback so I can see if there's room for improvement...
-            if (chrome.runtime.setUninstallURL) {
-                var uninstallGoogleFormLink = 'https://docs.google.com/forms/d/e/1FAIpQLSe-r_WFNry_KZCwOjdMjDjiS8sEIWmmwY-3hbSmIYV393RLCA/viewform';
-                chrome.runtime.setUninstallURL(uninstallGoogleFormLink);
-            }
-        });
+        }, function () { });
     } else if (details.reason == "update") {
         chrome.storage.sync.set({
             installedVersion: thisVersion,
@@ -127,6 +123,8 @@ chrome.runtime.onInstalled.addListener(function (details) {
             newUpdate: true
         }, function () { });
     }
+    // Do not inherit the upstream project's uninstall feedback destination.
+    chrome.runtime.setUninstallURL('');
 })
 
 // Initialize auto-sort feature when service worker starts

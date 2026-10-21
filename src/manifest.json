@@ -1,7 +1,8 @@
 {
-    "name": "Super Tab Sorter",
-    "description": "Super Tab Sorter that allows user-defined tab group order.",
-    "version": "0.5.3",
+    "name": "__MSG_extensionName__",
+    "description": "__MSG_extensionDescription__",
+    "version": "0.1.0",
+    "default_locale": "en",
     "manifest_version": 3,
     "permissions": ["tabs", "tabGroups", "storage", "alarms"],
     "icons": {
@@ -14,9 +15,9 @@
         "type": "module"
     },
     "action": {
-        "default_title": "Super Tab Sorter",
+        "default_title": "__MSG_actionTitle__",
         "default_popup": "./popup.html",
-        "default_icons": {
+        "default_icon": {
             "16": "img/16.png",
             "48": "img/48.png",
             "128": "img/128.png"

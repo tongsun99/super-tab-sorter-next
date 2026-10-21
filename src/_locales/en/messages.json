@@ -1,0 +1,140 @@
+{
+  "extensionName": {
+    "message": "Super Tab Sorter Next"
+  },
+  "extensionDescription": {
+    "message": "Sort and deduplicate tabs while respecting tab groups. Includes custom ordering, auto-sort, and English / Chinese settings."
+  },
+  "actionTitle": {
+    "message": "Sort tabs · Super Tab Sorter Next"
+  },
+  "tagline": {
+    "message": "A little order for your open tabs."
+  },
+  "language": {
+    "message": "Language"
+  },
+  "languageAuto": {
+    "message": "Follow browser"
+  },
+  "sorting": {
+    "message": "Sorting"
+  },
+  "sortBy": {
+    "message": "Sort by"
+  },
+  "sortUrl": {
+    "message": "Website address"
+  },
+  "sortTitle": {
+    "message": "Page title"
+  },
+  "sortCustom": {
+    "message": "Custom website order"
+  },
+  "sortHelp": {
+    "message": "URL sorts by domain, then subdomain and path. Custom follows the existing order of website hosts."
+  },
+  "sortPinnedTabs": {
+    "message": "Include pinned tabs"
+  },
+  "dedupeTabs": {
+    "message": "Close duplicate tabs, keeping the newest"
+  },
+  "dedupeHelp": {
+    "message": "Duplicates are matched by full URL within each tab group or the ungrouped area. Pinned tabs are handled separately when included."
+  },
+  "customOptions": {
+    "message": "Custom order only"
+  },
+  "groupFrom": {
+    "message": "Read website order from"
+  },
+  "leftToRight": {
+    "message": "Left to right"
+  },
+  "rightToLeft": {
+    "message": "Right to left"
+  },
+  "preserveOrderWithinGroups": {
+    "message": "Keep tab order within the same website"
+  },
+  "autoSorting": {
+    "message": "Automatic sorting"
+  },
+  "autoSortEnabled": {
+    "message": "Enable automatic sorting"
+  },
+  "interval": {
+    "message": "Interval (seconds)"
+  },
+  "intervalHelp": {
+    "message": "1–3600 seconds; default 300. Intervals of 60 seconds or more round up to whole minutes. Browser sleep or background suspension can delay sorting, especially below 60 seconds."
+  },
+  "autoSortOnTabCreate": {
+    "message": "Also sort when a tab opens"
+  },
+  "autoSortOnTabClose": {
+    "message": "Also sort when a tab closes"
+  },
+  "suspendedOptions": {
+    "message": "Suspended tabs · optional"
+  },
+  "suspendedHelp": {
+    "message": "For The Great Suspender derivatives using suspended.html#uri=… URLs, such as The Marvellous Suspender. Otherwise, keep the defaults."
+  },
+  "groupSuspendedTabs": {
+    "message": "Move suspended tabs together to the left"
+  },
+  "tabSuspenderExtensionId": {
+    "message": "Suspender extension ID"
+  },
+  "save": {
+    "message": "Save settings"
+  },
+  "saved": {
+    "message": "Settings saved"
+  },
+  "error": {
+    "message": "Something went wrong. Reopen this page and try again."
+  },
+  "help": {
+    "message": "How to use"
+  },
+  "usage": {
+    "message": "Click the toolbar icon to sort the last focused window. Right-click the icon and choose Options to return here. Auto-sort uses that same window; it does not sort every window."
+  },
+  "groupsHelp": {
+    "message": "Native tab groups are preserved and sorted by name. Prefix names with numbers (01 Work, 02 Reading) to control their order. Automatic sorting is off by default."
+  },
+  "privacy": {
+    "message": "Privacy"
+  },
+  "privacyText": {
+    "message": "Tab URLs, titles and group information are processed inside your browser only to sort and deduplicate tabs. No browsing history is stored or sent to the developer. Preferences, including your language choice, use Chrome storage sync and may sync through your Google account. No analytics, ads or remote code."
+  },
+  "limitedUse": {
+    "message": "Use of information received from Google APIs adheres to the Chrome Web Store User Data Policy, including the Limited Use requirements."
+  },
+  "credits": {
+    "message": "Based on Peter White’s"
+  },
+  "license": {
+    "message": "GPL v3 license"
+  },
+  "notices": {
+    "message": "Attribution & notices"
+  },
+  "noWarranty": {
+    "message": "Free software, without warranty."
+  },
+  "source": {
+    "message": "Source code & installation"
+  },
+  "sortingNow": {
+    "message": "Sorting tabs…"
+  },
+  "settings": {
+    "message": "Open settings"
+  }
+}

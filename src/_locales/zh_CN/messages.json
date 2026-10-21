@@ -1,0 +1,140 @@
+{
+  "extensionName": {
+    "message": "Super Tab Sorter Next"
+  },
+  "extensionDescription": {
+    "message": "整理与去重标签页，保留标签组，支持自定义顺序、自动排序及中英文设置。"
+  },
+  "actionTitle": {
+    "message": "整理标签页 · Super Tab Sorter Next"
+  },
+  "tagline": {
+    "message": "让打开的标签页，井然有序。"
+  },
+  "language": {
+    "message": "语言"
+  },
+  "languageAuto": {
+    "message": "跟随浏览器"
+  },
+  "sorting": {
+    "message": "排序"
+  },
+  "sortBy": {
+    "message": "排序方式"
+  },
+  "sortUrl": {
+    "message": "网址"
+  },
+  "sortTitle": {
+    "message": "页面标题"
+  },
+  "sortCustom": {
+    "message": "自定义网站顺序"
+  },
+  "sortHelp": {
+    "message": "网址排序先比较主域名，再比较子域名和路径；自定义排序沿用标签栏中各网站的先后顺序。"
+  },
+  "sortPinnedTabs": {
+    "message": "同时整理固定标签页"
+  },
+  "dedupeTabs": {
+    "message": "关闭重复标签页，保留最新打开的"
+  },
+  "dedupeHelp": {
+    "message": "在每个标签组或未分组区域内，按完整网址去重；固定标签页启用排序时单独处理。"
+  },
+  "customOptions": {
+    "message": "仅用于自定义排序"
+  },
+  "groupFrom": {
+    "message": "网站顺序参考方向"
+  },
+  "leftToRight": {
+    "message": "从左到右"
+  },
+  "rightToLeft": {
+    "message": "从右到左"
+  },
+  "preserveOrderWithinGroups": {
+    "message": "保留同一网站内的标签页顺序"
+  },
+  "autoSorting": {
+    "message": "自动排序"
+  },
+  "autoSortEnabled": {
+    "message": "开启自动排序"
+  },
+  "interval": {
+    "message": "间隔（秒）"
+  },
+  "intervalHelp": {
+    "message": "1～3600 秒，默认 300 秒。60 秒及以上向上取整到整分钟；浏览器休眠或暂停后台时可能延迟，尤其是小于 60 秒的间隔。"
+  },
+  "autoSortOnTabCreate": {
+    "message": "新建标签页时也整理"
+  },
+  "autoSortOnTabClose": {
+    "message": "关闭标签页时也整理"
+  },
+  "suspendedOptions": {
+    "message": "休眠标签页 · 可选"
+  },
+  "suspendedHelp": {
+    "message": "适用于使用 suspended.html#uri=… 网址格式的 The Great Suspender 衍生扩展，例如 The Marvellous Suspender。不使用此类扩展时，保持默认即可。"
+  },
+  "groupSuspendedTabs": {
+    "message": "将休眠标签页集中排列在左侧"
+  },
+  "tabSuspenderExtensionId": {
+    "message": "休眠扩展 ID"
+  },
+  "save": {
+    "message": "保存设置"
+  },
+  "saved": {
+    "message": "设置已保存"
+  },
+  "error": {
+    "message": "操作未完成，请重新打开页面后重试。"
+  },
+  "help": {
+    "message": "使用说明"
+  },
+  "usage": {
+    "message": "点击工具栏图标即可整理最近聚焦的窗口；右键图标，选择“选项”可返回此页。自动排序也针对最近聚焦的窗口，不会同时整理所有窗口。"
+  },
+  "groupsHelp": {
+    "message": "保留原生标签组，并按组名排序；可以使用数字前缀（如 01 工作、02 阅读）控制组的顺序。自动排序默认关闭。"
+  },
+  "privacy": {
+    "message": "隐私说明"
+  },
+  "privacyText": {
+    "message": "标签页网址、标题和分组信息仅在浏览器内用于排序与去重，不保存浏览历史，也不向开发者发送。偏好设置（包括语言选择）使用 Chrome 同步存储，可能通过你的 Google 账号同步。无统计、广告或远程代码。"
+  },
+  "limitedUse": {
+    "message": "对通过 Google API 获取的信息的使用遵守 Chrome Web Store 用户数据政策，包括“有限使用”要求。"
+  },
+  "credits": {
+    "message": "基于 Peter White 的开源项目"
+  },
+  "license": {
+    "message": "GPL v3 许可证"
+  },
+  "notices": {
+    "message": "致谢与声明"
+  },
+  "noWarranty": {
+    "message": "自由软件，不提供担保。"
+  },
+  "source": {
+    "message": "源码与安装方式"
+  },
+  "sortingNow": {
+    "message": "正在整理标签页…"
+  },
+  "settings": {
+    "message": "打开设置"
+  }
+}

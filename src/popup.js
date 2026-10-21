@@ -1,50 +1,16 @@
-const thisVersion = chrome.runtime.getManifest().version;
-var newInstallOrUpdate = false;
-
-// Clear install & upgrade flags once they've been handled...
-function clearInstallOrUpdate() {
-    chrome.storage.sync.set({
-        installedVersion: chrome.runtime.getManifest().version,
-        newInstall: false,
-        newUpdate: false
-    }, function () {});
-}
-
-// Display modal dialog when first clicked after an install or update...
-chrome.storage.sync.get({
-    installedVersion: '',
-    newInstall: false,
-    newUpdate: false,
-}, function (config) {
-    if (config.newInstall) {
-        clearInstallOrUpdate();
-        alert(`Welcome to Super Tab Sorter!
-
-        Please review the "User Guide" before getting started.
-
-        You'll need to click the extension icon, again, to sort your tabs after dismissing this dialog but you won't see this dialog again unless you reinstall this extension.
-
-        You can right-click on the extension icon and select \"Options\" at any time to configure extension settings and review the user guide.`);
-        chrome.tabs.create({ url: chrome.runtime.getURL('./userguide.html') });
-        window.close();
-    } else if (config.newUpdate) {
-        clearInstallOrUpdate();
-        alert("Super Tab Sorter has been updated to v" + thisVersion +
-        ".\n\nThis version uses the new Chrome manifest v3 API (major architectural change) and adds direct support for Chrome's tab groups feature" +
-        ".\n\nIt also adds optional duplicate tab removal (during sorting) and Sort By URL sorts by root domain and sub-sorts by host name." +
-        "\n\nPlease review the updated User Guide to learn more about the latest changes." +
-        "\n\nYou'll need to click the extension icon, again, to sort your tabs after dismissing this dialog but you won't see this dialog again until installing the next update." +
-        "\n\nYou can right-click on the extension icon and select \"Options\" at any time to configure extension settings and review the user guide.");
-        chrome.tabs.create({ url: chrome.runtime.getURL('./userguide.html') });
-        window.close();
+// Derived from Super Tab Sorter by Peter White; rewritten 2026-10-21 by tongsun99.
+// GPL-3.0; see LICENSE and NOTICE.
+import { setLanguage, t } from './i18n.js';
+async function activate() {
+    const config = await chrome.storage.sync.get({ newInstall: false, newUpdate: false, language: 'auto' });
+    await setLanguage(config.language);
+    if (config.newInstall || config.newUpdate) {
+        await chrome.runtime.openOptionsPage();
+        await chrome.storage.sync.set({ installedVersion: chrome.runtime.getManifest().version, newInstall: false, newUpdate: false });
     } else {
-        // Send click event to background.js for processing...
-        chrome.runtime.sendMessage({
-            type: "click_event"
-        }, response => {
-            if (response.message === 'success') {
-                window.close();
-            }
-            });
-            }
-});
+        const response = await chrome.runtime.sendMessage({ type: 'click_event' });
+        if (response?.message !== 'success') throw new Error('Sorting unavailable');
+    }
+    window.close();
+}
+activate().catch(() => { document.getElementById('status').textContent = t('error'); });

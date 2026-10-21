@@ -1,152 +1,60 @@
 <!doctype html>
+<!-- Super Tab Sorter Next; modified by tongsun99, 2026-10-21. GPL-3.0. -->
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
-    <meta name="author" content="Peter White">
-    <title>Super Tab Sorter: Settings Page</title>
-
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="bootstrap.min.css"/>
-    <link rel="stylesheet" href="style.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Super Tab Sorter Next</title>
+    <link rel="icon" href="img/48.png">
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <div class="container bg-light">
-        <h3 class="navbar-brand h3">Super Tab Sorter</h3>
-    </div>
-    <div class="container">
-        <div class="row">
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                <div class="sidebar-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">Settings</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="userguide.html">User Guide</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about.html">About</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-
-            <main role="main" class="col-md-9 ml-md-auto col-lg-10 px-4">
-            <form id="settings-form" class="justify-content-start">
-                <div class="form-group">
-                    <h3 class="padded-title">Settings</h3>
-                </div>
-                <div class="setting-group">
-                    <div class="form-group">
-                        <label for="sortBy">Sort By:<br/>
-                        <select class="form-control" id="sortBy">
-                            <option value="title">Title</option>
-                            <option value="url">URL</option>
-                            <option value="custom">Custom</option>
-                        </select>
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="sortPinnedTabs" name="sortPinnedTabs">
-                        <label class="form-check-label" for="sortPinnedTabs">
-                            Sort pinned tabs
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="dedupeTabs" name="dedupeTabs">
-                        <label class="form-check-label" for="dedupeTabs">
-                            Dedupe tabs (in current window)
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="groupSuspendedTabs" name="groupSuspendedTabs">
-                        <label class="form-check-label" for="groupSuspendedTabs">
-                            Group suspended tabs together (if unchecked, enter Tab suspender extension id directly below)
-                        </label>
-                        <input type="text" class="form-control" id="tabSuspenderExtensionId" name="tabSuspenderExtensionId" value="">
-                    </div>
-                </div>
-                <div class="setting-group">
-                    <div class="form-group">
-                        <h5>These settings only apply to "Sort By: Custom"</h5>
-                        <label for="groupFrom">Group From:<br/>
-                        <select class="form-control" id="groupFrom">
-                            <option value="leftToRight">Left to Right</option>
-                            <option value="rightToLeft">Right to Left</option>
-                        </select>
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="preserveOrderWithinGroups" name="preserveOrderWithinGroups">
-                        <label class="form-check-label" for="preserveOrderWithinGroups">
-                            Preserve order within groups
-                        </label>
-                    </div>
-                </div>
-                <div class="setting-group">
-                    <div class="form-group">
-                        <h5>Auto-Sort Settings</h5>
-                        <p style="font-size: 0.9rem; color: #666;">Automatically sort tabs on a schedule or when tabs are created/closed.</p>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="autoSortEnabled" name="autoSortEnabled">
-                        <label class="form-check-label" for="autoSortEnabled">
-                            Enable auto-sort
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label for="autoSortIntervalSeconds">Sort Interval (seconds):
-                        <input type="number" class="form-control" id="autoSortIntervalSeconds" name="autoSortIntervalSeconds"
-                               min="1" max="3600" step="1" value="300" disabled>
-                        <small class="form-text text-muted">Range: 1-3600 seconds (1 second - 60 minutes)</small>
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="autoSortOnTabCreate" name="autoSortOnTabCreate" disabled>
-                        <label class="form-check-label" for="autoSortOnTabCreate">
-                            Also sort when tab is created
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="autoSortOnTabClose" name="autoSortOnTabClose" disabled>
-                        <label class="form-check-label" for="autoSortOnTabClose">
-                            Also sort when tab is closed
-                        </label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div>&nbsp;</div>
-                </div>
-                <div class="row">
-                    <div class="col-auto">
-                        <button id="save" class="btn btn-primary" type="submit" disabled>Save</button>
-                    </div>
-                    <div class="col-auto">
-                        <div id="status" class="btn alert-success invisible">Settings Saved</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div>&nbsp;</div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div>Brought to you by <a href="https://peterwhite.net" target="_blank">Peter White</a></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div>Icon design by Logan White</div>
-                    </div>
-                </div>
-            </form>
-            </main>
-        </div>
-    </div>
-    <script src="jquery-3.7.1.slim.min.js"></script>
-    <script src="bootstrap.min.js"></script>
-    <script src="options.js"></script>
+<main class="page">
+    <header>
+        <div class="brand"><img src="img/48.png" width="44" height="44" alt=""><div><h1>Super Tab Sorter <span>Next</span></h1><p data-i18n="tagline"></p></div></div>
+        <label class="language"><span data-i18n="language"></span><select id="language" form="settings-form"><option value="auto" data-i18n="languageAuto"></option><option value="zh_CN">简体中文</option><option value="en">English</option></select></label>
+    </header>
+    <form id="settings-form">
+        <section class="card" aria-labelledby="sorting-heading">
+            <h2 id="sorting-heading" data-i18n="sorting"></h2>
+            <div class="field"><label for="sortBy" data-i18n="sortBy"></label><select id="sortBy"><option value="url" data-i18n="sortUrl"></option><option value="title" data-i18n="sortTitle"></option><option value="custom" data-i18n="sortCustom"></option></select></div>
+            <p class="hint" data-i18n="sortHelp"></p>
+            <label class="check"><input type="checkbox" id="sortPinnedTabs"><span data-i18n="sortPinnedTabs"></span></label>
+            <label class="check"><input type="checkbox" id="dedupeTabs"><span data-i18n="dedupeTabs"></span></label>
+            <p class="hint" data-i18n="dedupeHelp"></p>
+            <fieldset id="custom-options">
+                <legend data-i18n="customOptions"></legend>
+                <div class="field"><label for="groupFrom" data-i18n="groupFrom"></label><select id="groupFrom"><option value="leftToRight" data-i18n="leftToRight"></option><option value="rightToLeft" data-i18n="rightToLeft"></option></select></div>
+                <label class="check"><input type="checkbox" id="preserveOrderWithinGroups"><span data-i18n="preserveOrderWithinGroups"></span></label>
+            </fieldset>
+        </section>
+        <section class="card" aria-labelledby="auto-heading">
+            <h2 id="auto-heading" data-i18n="autoSorting"></h2>
+            <label class="check"><input type="checkbox" id="autoSortEnabled"><span data-i18n="autoSortEnabled"></span></label>
+            <fieldset id="auto-options">
+                <legend class="sr-only" data-i18n="autoSorting"></legend>
+                <div class="field"><label for="autoSortIntervalSeconds" data-i18n="interval"></label><input type="number" id="autoSortIntervalSeconds" min="1" max="3600" step="1" required aria-describedby="interval-help"></div>
+                <p class="hint" id="interval-help" data-i18n="intervalHelp"></p>
+                <label class="check"><input type="checkbox" id="autoSortOnTabCreate"><span data-i18n="autoSortOnTabCreate"></span></label>
+                <label class="check"><input type="checkbox" id="autoSortOnTabClose"><span data-i18n="autoSortOnTabClose"></span></label>
+            </fieldset>
+        </section>
+        <details class="card">
+            <summary data-i18n="suspendedOptions"></summary>
+            <p class="hint" data-i18n="suspendedHelp"></p>
+            <label class="check"><input type="checkbox" id="groupSuspendedTabs"><span data-i18n="groupSuspendedTabs"></span></label>
+            <div class="field stacked"><label for="tabSuspenderExtensionId" data-i18n="tabSuspenderExtensionId"></label><input type="text" id="tabSuspenderExtensionId" spellcheck="false" autocomplete="off" maxlength="32" pattern="[a-p]{32}" required></div>
+        </details>
+        <div class="save-bar"><span id="status" role="status" aria-live="polite"></span><button id="save" type="submit" disabled data-i18n="save"></button></div>
+    </form>
+    <details class="info"><summary data-i18n="help"></summary><p data-i18n="usage"></p><p data-i18n="groupsHelp"></p></details>
+    <details class="info"><summary data-i18n="privacy"></summary><p data-i18n="privacyText"></p><p data-i18n="limitedUse"></p></details>
+    <footer>
+        <p><span id="version"></span> · <span data-i18n="credits"></span> <a href="https://github.com/pwhite2/super-tab-sorter" target="_blank" rel="noopener noreferrer">Super Tab Sorter</a> / <a href="https://github.com/pwhite2/simple-tab-sorter" target="_blank" rel="noopener noreferrer">Simple Tab Sorter</a>.</p>
+        <p><a href="LICENSE" data-i18n="license"></a> · <a href="NOTICE" data-i18n="notices"></a> · <span data-i18n="noWarranty"></span></p>
+        <p><a href="SOURCE.html" data-i18n="source"></a></p>
+    </footer>
+</main>
+<script type="module" src="options.js"></script>
 </body>
-
 </html>

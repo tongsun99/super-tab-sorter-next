@@ -1,0 +1,8 @@
+<!-- Original Next icon, tongsun99, 2026-10-21. GPL-3.0. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect x="8" y="8" width="496" height="496" rx="112" fill="#315ed8"/>
+  <rect x="102" y="112" width="304" height="240" rx="28" fill="#92b1ff"/>
+  <rect x="76" y="152" width="304" height="240" rx="28" fill="#ceddff"/>
+  <rect x="108" y="192" width="304" height="224" rx="28" fill="#fff"/>
+  <g fill="#315ed8"><rect x="152" y="238" width="116" height="19" rx="9"/><rect x="152" y="292" width="164" height="19" rx="9"/><rect x="152" y="346" width="212" height="19" rx="9"/></g>
+</svg>

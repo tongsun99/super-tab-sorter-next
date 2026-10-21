@@ -1,56 +1,41 @@
-# Super Tab Sorter
+# Super Tab Sorter Next
 
-<img src="src/img/128.png" width="128px"/>
+[中文](#中文) · [English](#english)
 
-"Super Tab Sorter" is a free and open-source Google Chrome extension for people who want user-customizable tab sorting and grouping. This is a feature-rich version of [Simple Tab Sorter](https://github.com/pwhite2/simple-tab-sorter), intended to accomodate feature requests that may conflict with Simple Tab Sorter's design goals of remaining "**Simple**" and lightweight.
+## 中文
 
-In addition to standard URL or title-based sorting, its "killer features" are:
+一个简洁的 Chrome 标签页排序扩展，支持中英文界面。
 
-1. Respects Google Chrome's Tab Groups.
-2. "Sort By URL" sorts by domain, sub-sorts by host name.
-3. "Sort By Custom" is like "Sort By URL", with the ability to simply override the order of tabs manually.
-4. Optional dedupe while sorting.
-5. User configurable sort behavior for handling tabs suspended by extensions derived from [The Great Suspender](https://github.com/greatsuspender/thegreatsuspender) (please review the User Guide under Options for configuration instructions).
+- 按网址、标题或自定义网站顺序排序，保留 Chrome 标签组。
+- 可选整理固定标签页、重复网址去重（按标签 ID 保留最新页面）。
+- 支持定时排序、新建或关闭标签页时自动排序。
+- 保留休眠扩展兼容设置，全部选项集中在一个页面。
 
-Please [report bugs or suggest features](https://github.com/pwhite2/super-tab-sorter/issues/)  if you have problems or ideas for this extension. Please check the User Guide on the Options page before doing that.  Also, keep in mind that this extension sorts tabs, it doesn't "manage" them. Tab management is not what I do, so look for another extension if you need that.
+**安装：** 打开 `chrome://extensions`，开启开发者模式，点击“加载已解压的扩展程序”，选择 `src` 目录。点击工具栏图标整理最近聚焦的窗口；右键图标 → 选项，修改配置。首次点击或更新后会打开设置页。
 
-I can be contacted via the contact form at [peterwhite.net](https://peterwhite.net) for other inquiries.
+自动排序默认关闭。间隔为 1～3600 秒；60 秒及以上向上取整到整分钟，后台休眠可能造成延迟。去重按标签组／未分组区域分别处理，固定标签页单独处理。
 
-### Install from the Chrome Web Store
+**隐私：** 网址、标题和标签组信息仅在浏览器中处理，不向开发者发送；配置通过 Chrome 同步存储保存。详见 [隐私政策](PRIVACY.md)。
 
-Super Tab Sorter is [available via the official Chrome Web Store](https://chrome.google.com/webstore/detail/super-tab-sorter/jjhppbooocacaccnhjninhmigbfmpnkh).
+**打包：** 运行 `./package_for_web_store.sh`，产物位于 `dist/`。发布准备见 [发布说明](docs/RELEASING.md)。目前尚未发布到 Chrome Web Store。
 
-Please note that the webstore version may lag behind the latest version found here. My intention is to limit experimentation to GitHub in an attempt to avoid being buried in support requests from the wider public audience using the Chrome Web Store.
+致敬 Peter White 的 [Super Tab Sorter](https://github.com/pwhite2/super-tab-sorter) 和 [Simple Tab Sorter](https://github.com/pwhite2/simple-tab-sorter)。本项目是独立维护的衍生版本，新增自动排序、去重策略及简洁双语界面，使用 **GPL v3**，不提供担保。详见 [LICENSE](LICENSE) 和 [NOTICE](NOTICE)。
 
-### Install as an extension from source
+## English
 
-1. Download and extract the **[latest available release](https://github.com/pwhite2/super-tab-sorter/releases)**, or clone this repo (if you enjoy living on the edge), to your preferred location.
-2. In any **Google Chrome** compatible browser, navigate to "chrome://extensions" and enable "Developer mode" in the upper right corner.
-3. Click the <kbd>Load unpacked</kbd> button.
-4. Browse to the **src** directory of the extracted folder, or cloned reop, and select or confirm (the terminology may be browser dependent).
+A simple Chrome tab sorter with English and Chinese settings.
 
-Once you have completed the above steps, you should see the <img src="src/img/128.png" width="16px"/> icon in your browser toolbar, indicating successful installation of the extension.
+- Sort by URL, title, or custom website order while preserving Chrome tab groups.
+- Optionally sort pinned tabs and close duplicate URLs, keeping the highest tab ID.
+- Automatically sort on a schedule or when tabs open or close.
+- Suspender compatibility and all settings on one page.
 
-### Future Development / How You Can Help
+**Install:** Open `chrome://extensions`, enable Developer mode, choose **Load unpacked**, and select `src`. Click the toolbar icon to sort the last focused window. Right-click → Options to configure. The first click after installation or an update opens settings.
 
-TL;DR - If you'd like to see continued development of this extension, you can submit positive Chrome Web Store [reviews](https://chromewebstore.google.com/detail/super-tab-sorter/jjhppbooocacaccnhjninhmigbfmpnkh/reviews) to offset the unjustified negative reviews and increase the user base.
+Auto-sort is off by default. Intervals range from 1–3600 seconds; values of 60 seconds or more round up to whole minutes. Background suspension may delay sorting. Duplicates are handled separately within each group, the ungrouped area, and included pinned tabs.
 
-[Simple Tab Sorter](https://github.com/pwhite2/simple-tab-sorter) had a 4.9 star rating on the [Chrome Web Store](https://chromewebstore.google.com/detail/simple-tab-sorter/cgfpgnepljlgenjclbekbjdlgcodfmjp) before the forced migration to Chrome manifest v3 and has suffered negative reviews as a result of Chrome's changed messaging about the "tabs" permisions in the manifest.json and an (understandably) angry user whose tabs were unexpectedly sorted in all windows, due to behavioral changes resulting from the manifest v3 migration - sidenote, I submitted the fix for this issue (for both extensions) the day it was mentioned in their review.
+**Privacy:** URLs, titles, and group information stay in your browser and are not sent to the developer. Preferences use Chrome storage sync. See [Privacy Policy](PRIVACY.md).
 
-Fortunately, due to Simple Tab Sorter's previously near-perfect rating, those negative reviews only brought it down to a 4.5 star rating. I think this is respectable considering the issues in all negative reviews have been addressed and the reviewers haven't updated their reviews even when stated they would once addressed. I expect the rating to correct over time since Simple Tab Sorter is still one of, if not the, highest-rated tab sorting extensions available.
+**Package:** Run `./package_for_web_store.sh`; archives appear in `dist/`. See [release notes](docs/RELEASING.md). Not yet published to the Chrome Web Store.
 
-#### So what does this have to do with Super Tab Sorter...
-
-On the other hand, Super Tab Sorter was initially cloned from the Simple Tab Sorter manifest v3 migration code and began with a clean slate of no Chrome Web Store reviews. Its first review was a 1-star rating - it doesn't appear as a review, so I can't respond to it, but it absolutely tanked the reputation of this extension from the start. It's from the user whose tabs were sorted in all windows in Simple Tab Sorter, and it was written over a week after the bug had been fixed in both extensions, so it appears to be a revenge review.
-
-A kind user attempted to offset the 1 star review with a 5 star review, so it's been sitting at 3 stars, which reflects poorly, and inaccurately (IMO) on the current state of the extension.
-
-From there, I thought things could only get better, but was sadly mistaken - a week later, a user submitted a 1-star "steals you web history" review that couldn't be further from the truth and I'm waiting for that review to be reflected in this extension's Chrome Web Store "Overview" page. I briefly considered reporting that review as abuse but decided this extension, and my time, might be better served by responding to his false accusation so I, hopefully, don't have to deal with this again.
-
-It's human nature to complain more than praise, and I believe this is reflected in the number of reviews that each of my extensions have, as a percentage of the total number of active users.  I *had* plans for additional features but can't justify continued development based on the current rating and number of active users. The reality is, most people ignore extensions with low ratings and continued investment of my personal time, for such a small user base (roughly 100 users), would be a poor investment considering other projects I have in mind.
-
-I can pick up from where I left off if the Chrome Web Store rating, and active user base, improve enough to justify futher investment but, for the time being, I consider this project on hold. Thanks in advance for your support.
-
-### License
-
-This work is licensed under the GNU General Public License v3.0.
+Thanks to Peter White for [Super Tab Sorter](https://github.com/pwhite2/super-tab-sorter) and [Simple Tab Sorter](https://github.com/pwhite2/simple-tab-sorter). This independently maintained derivative adds auto-sort, updated deduplication, and a simple bilingual interface. Licensed under **GPL v3**, without warranty. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
