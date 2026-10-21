@@ -6,10 +6,10 @@ import vm from 'node:vm';
 
 function engine() {
     const removed = [], moved = [], groups = [], timers = [], alarms = [];
-    const event = () => ({ addListener() {} });
+    const event = () => ({ listeners: [], addListener(fn) { this.listeners.push(fn); } });
     const chrome = {
         runtime: { onMessage: event(), onInstalled: event() },
-        tabs: { onCreated: event(), onRemoved: event(), remove(ids) { removed.push(...ids); }, move(ids) { moved.push([...ids]); }, group(value) { groups.push(value); } },
+        tabs: { onCreated: event(), onUpdated: event(), onRemoved: event(), remove(ids) { removed.push(...ids); }, move(ids) { moved.push([...ids]); }, group(value) { groups.push(value); } },
         storage: { sync: { get(defaults, callback) { if (callback) callback(defaults); else return Promise.resolve(defaults); } }, onChanged: event() },
         alarms: { onAlarm: event(), clear() {}, create(...args) { alarms.push(args); } }
     };
@@ -77,6 +77,23 @@ test('auto-sort retains second timers and rounded minute alarms', () => {
     }
     assert.deepEqual(timers, [5000,59000]);
     assert.deepEqual(alarms.map(a => a[1].periodInMinutes), [1,2,60]);
+});
+test('URL updates schedule automatic sorting only when the tab creation option is enabled', () => {
+    const { context, chrome } = engine();
+    let scheduled = 0;
+    context.triggerAutoSortIfEnabled = () => { scheduled++; };
+    let settings = {autoSortEnabled:true, autoSortOnTabCreate:true};
+    chrome.storage.sync.get = (defaults, callback) => callback({...defaults, ...settings});
+    const updated = chrome.tabs.onUpdated.listeners[0];
+    updated(1, {status:'complete'});
+    updated(1, {url:'https://example.com/'});
+    assert.equal(scheduled, 1);
+    settings.autoSortOnTabCreate = false;
+    updated(1, {url:'https://example.com/other'});
+    settings.autoSortOnTabCreate = true;
+    settings.autoSortEnabled = false;
+    updated(1, {url:'https://example.com/third'});
+    assert.equal(scheduled, 1);
 });
 test('both locales cover all settings labels and manifest messages', () => {
     const en = JSON.parse(fs.readFileSync(new URL('../src/_locales/en/messages.json',import.meta.url)));

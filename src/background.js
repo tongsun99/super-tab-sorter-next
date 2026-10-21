@@ -39,6 +39,20 @@ chrome.tabs.onCreated.addListener(function(tab) {
     });
 });
 
+// A newly created tab may receive its destination URL after onCreated fires.
+// Recheck once the URL changes so automatic deduplication sees the final URL.
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
+    if (!changeInfo.url) return;
+    chrome.storage.sync.get({
+        autoSortEnabled: false,
+        autoSortOnTabCreate: true
+    }, function(settings) {
+        if (settings.autoSortEnabled && settings.autoSortOnTabCreate && !isInitializing) {
+            triggerAutoSortIfEnabled();
+        }
+    });
+});
+
 // Auto-sort on tab removal
 chrome.tabs.onRemoved.addListener(function(tabId, removeInfo) {
     chrome.storage.sync.get({
