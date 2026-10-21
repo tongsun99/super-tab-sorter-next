@@ -12,7 +12,7 @@ header p { margin:5px 0 0; color:var(--muted); font-size:13px; }
 .card { background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:24px; margin-bottom:16px; }
 h2 { font-size:16px; margin:0 0 18px; }
 .field { display:flex; align-items:center; justify-content:space-between; gap:16px; }
-select,input[type="text"],input[type="number"] { font:inherit; color:var(--ink); border:1px solid var(--line); border-radius:7px; padding:8px 10px; background:var(--control); min-width:0; }
+select,input[type="text"],input[type="number"],textarea { font:inherit; color:var(--ink); border:1px solid var(--line); border-radius:7px; padding:8px 10px; background:var(--control); min-width:0; }
 .field select { width:220px; }
 input[type="number"] { width:120px; }
 .language select { font-size:13px; padding:6px 8px; }
@@ -25,6 +25,16 @@ fieldset:disabled { opacity:.55; }
 :disabled { cursor:default; }
 .stacked { align-items:stretch; flex-direction:column; gap:8px; margin-top:16px; }
 .stacked input { width:100%; font-family:ui-monospace,monospace; }
+textarea { width:100%; resize:vertical; font-family:ui-monospace,monospace; }
+.regex-rule { border:1px solid var(--line); border-radius:8px; padding:0 14px 14px; margin:14px 0; }
+.rule-heading { color:var(--muted); font-size:12px; margin:12px 0 0; }
+.regex-rule .field:not(.stacked) { margin-top:16px; }
+.rule-flags { width:100px; font-family:ui-monospace,monospace; }
+.rule-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+button.secondary { background:var(--control); color:var(--accent); border:1px solid var(--line); padding:7px 12px; }
+.rule-tester { margin-top:20px; }
+.rule-tester button { margin-top:12px; }
+.test-result { margin:12px 0 0; padding:10px; border:1px solid var(--line); border-radius:7px; font-size:12px; white-space:pre-wrap; overflow-wrap:anywhere; }
 summary { cursor:pointer; font-weight:600; }
 details[open] summary { margin-bottom:12px; }
 .save-bar { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:14px 0; }

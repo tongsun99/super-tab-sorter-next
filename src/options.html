@@ -22,6 +22,22 @@
             <label class="check"><input type="checkbox" id="sortPinnedTabs"><span data-i18n="sortPinnedTabs"></span></label>
             <label class="check"><input type="checkbox" id="dedupeTabs"><span data-i18n="dedupeTabs"></span></label>
             <p class="hint" data-i18n="dedupeHelp"></p>
+            <fieldset id="dedupe-options">
+                <legend data-i18n="dedupeSettings"></legend>
+                <div class="field"><label for="dedupeMode" data-i18n="dedupeMode"></label><select id="dedupeMode"><option value="exact" data-i18n="dedupeExact"></option><option value="regex" data-i18n="dedupeRegex"></option></select></div>
+                <fieldset id="regex-options" hidden>
+                    <legend data-i18n="regexRules"></legend>
+                    <p class="hint" data-i18n="regexHelp"></p>
+                    <div id="dedupe-rules"></div>
+                    <div class="rule-actions"><button type="button" id="add-rule" class="secondary" data-i18n="addRule"></button><button type="button" id="bilibili-rule" class="secondary" data-i18n="bilibiliRule"></button></div>
+                    <details class="rule-tester">
+                        <summary data-i18n="testRules"></summary>
+                        <label class="field stacked"><span data-i18n="testUrls"></span><textarea id="test-urls" rows="4" spellcheck="false"></textarea></label>
+                        <button type="button" id="test-rules" class="secondary" data-i18n="testRules"></button>
+                        <div id="test-results" role="status" aria-live="polite"></div>
+                    </details>
+                </fieldset>
+            </fieldset>
             <fieldset id="custom-options">
                 <legend data-i18n="customOptions"></legend>
                 <div class="field"><label for="groupFrom" data-i18n="groupFrom"></label><select id="groupFrom"><option value="leftToRight" data-i18n="leftToRight"></option><option value="rightToLeft" data-i18n="rightToLeft"></option></select></div>
@@ -55,6 +71,15 @@
         <p><a href="SOURCE.html" data-i18n="source"></a></p>
     </footer>
 </main>
+<template id="rule-template">
+    <div class="regex-rule">
+        <p class="rule-heading"><span data-i18n="ruleLabel"></span> <span class="rule-number"></span></p>
+        <label class="field stacked"><span data-i18n="rulePattern"></span><input type="text" class="rule-pattern" required spellcheck="false" autocomplete="off"></label>
+        <label class="field stacked"><span data-i18n="ruleReplacement"></span><input type="text" class="rule-replacement" spellcheck="false" autocomplete="off"></label>
+        <label class="field"><span data-i18n="ruleFlags"></span><input type="text" class="rule-flags" maxlength="5" spellcheck="false" autocomplete="off"></label>
+        <div class="rule-actions"><button type="button" class="secondary move-up" data-i18n="moveRuleUp"></button><button type="button" class="secondary move-down" data-i18n="moveRuleDown"></button><button type="button" class="secondary remove-rule" data-i18n="removeRule"></button></div>
+    </div>
+</template>
 <script type="module" src="options.js"></script>
 </body>
 </html>

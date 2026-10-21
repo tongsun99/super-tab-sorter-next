@@ -42,7 +42,7 @@
     "message": "Close duplicate tabs, keeping the newest"
   },
   "dedupeHelp": {
-    "message": "Duplicates are matched by full URL within each tab group or the ungrouped area. Pinned tabs are handled separately when included."
+    "message": "Deduplicate by the selected rule within each group or the ungrouped area. Pinned tabs are handled separately when included in sorting."
   },
   "customOptions": {
     "message": "Custom order only"
@@ -136,5 +136,71 @@
   },
   "settings": {
     "message": "Open settings"
+  },
+  "dedupeSettings": {
+    "message": "Deduplication settings"
+  },
+  "dedupeMode": {
+    "message": "Deduplication rule"
+  },
+  "dedupeExact": {
+    "message": "Exact URL"
+  },
+  "dedupeRegex": {
+    "message": "Regular expressions"
+  },
+  "regexRules": {
+    "message": "Regular expression rules"
+  },
+  "regexHelp": {
+    "message": "The first matching rule replaces the URL for comparison only. Unmatched URLs and empty results use the original URL. Enter a JavaScript regex without / delimiters; replacements support capture groups such as $1 and $2."
+  },
+  "addRule": {
+    "message": "Add rule"
+  },
+  "bilibiliRule": {
+    "message": "Add Bilibili homepage example"
+  },
+  "rulePattern": {
+    "message": "Match pattern"
+  },
+  "ruleReplacement": {
+    "message": "Replace with"
+  },
+  "ruleFlags": {
+    "message": "Flags (optional: g i m s u)"
+  },
+  "moveRuleUp": {
+    "message": "Move up"
+  },
+  "moveRuleDown": {
+    "message": "Move down"
+  },
+  "removeRule": {
+    "message": "Remove"
+  },
+  "testRules": {
+    "message": "Test rules"
+  },
+  "testUrls": {
+    "message": "Test URLs (one per line; uses unsaved rules and never closes tabs)"
+  },
+  "invalidRule": {
+    "message": "Enter a valid regular expression and flags (g i m s u only, without duplicates)."
+  },
+  "invalidTestUrl": {
+    "message": "Invalid URL"
+  },
+  "noRuleMatch": {
+    "message": "No matching rule; using the full URL"
+  },
+  "matchedRule": {
+    "message": "Matched rule"
+  },
+  "duplicateGroup": {
+    "message": "Duplicate set"
+  },
+  "ruleLabel": {
+    "message": "Rule"
   }
 }

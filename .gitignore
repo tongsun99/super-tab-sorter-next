@@ -5,3 +5,7 @@ tmp
 webstore
 dist/
 test-results/
+node_modules/
+__pycache__/
+*.pyc
+.venv/

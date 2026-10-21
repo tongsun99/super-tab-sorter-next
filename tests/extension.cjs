@@ -40,6 +40,18 @@ async function until(page, predicate, argument) {
     assert.equal(manifest.name,'Super Tab Sorter Next');
     assert.equal(manifest.version,version);
     assert.deepEqual(manifest.permissions,['tabs','tabGroups','storage','alarms']);
+    // Check that every declared toolbar icon decodes and can be republished.
+    assert.ok(manifest.action.default_icon['32']);
+    await page.evaluate(async () => {
+        const paths=chrome.runtime.getManifest().action.default_icon;
+        for (const [size,path] of Object.entries(paths)) {
+            const image=new Image();
+            image.src=chrome.runtime.getURL(path);
+            await image.decode();
+            if (image.naturalWidth!==Number(size) || image.naturalHeight!==Number(size)) throw new Error('Invalid toolbar icon size');
+        }
+        await chrome.action.setIcon({path:paths});
+    });
     await page.locator('#language').selectOption('zh_CN');
     await page.getByRole('heading',{name:'排序',exact:true}).waitFor();
     await page.locator('#save').click();
@@ -83,8 +95,29 @@ async function until(page, predicate, argument) {
         return groupId;
     },fixture);
     await until(page,async ({windowId,groupId})=>(await chrome.tabs.query({windowId,pinned:false})).every(t=>t.groupId===groupId),{windowId:fixture.windowId,groupId});
+    // Automatic tab events use the same regex rules as manual sorting.
+    const regexFixture=await page.evaluate(async ({origin,windowId})=>{
+        await chrome.storage.sync.set({dedupeMode:'regex',dedupeRules:[{
+            pattern:'^(http://127\\.0\\.0\\.1:\\d+/\\?title=RegexDuplicate)(?:&source=[^&#]*)?$',
+            replacement:'$1',flags:''
+        }],autoSortEnabled:true,autoSortIntervalSeconds:300,autoSortOnTabCreate:true,autoSortOnTabClose:false});
+        await chrome.windows.update(windowId,{focused:true});
+        const old=await chrome.tabs.create({windowId,url:origin+'/?title=RegexDuplicate',active:false});
+        const newest=await chrome.tabs.create({windowId,url:origin+'/?title=RegexDuplicate&source=tracking',active:false});
+        const distinct=await chrome.tabs.create({windowId,url:origin+'/?title=RegexDuplicate&other=keep',active:false});
+        return {old:old.id,newest:newest.id,distinct:distinct.id,windowId};
+    },{origin,windowId:fixture.windowId});
+    await until(page,async f=>{
+        const tabs=await chrome.tabs.query({windowId:f.windowId});
+        return !tabs.some(t=>t.id===f.old) && tabs.some(t=>t.id===f.newest) && tabs.some(t=>t.id===f.distinct);
+    },regexFixture);
+    const regexResult=await page.evaluate(async f=>{
+        await chrome.storage.sync.set({autoSortEnabled:false});
+        return await chrome.tabs.get(f.newest);
+    },regexFixture);
+    assert.equal(regexResult.url,origin+'/?title=RegexDuplicate&source=tracking');
     assert.deepEqual(errors,[]);
-    console.log('Native extension checks passed: install/manifest, real sync storage and language reload, title sorting, newest-ID deduplication, pinned exclusion, group preservation.');
+    console.log('Native extension checks passed: install/manifest, toolbar icon decoding/republication, real sync storage and language reload, title sorting, newest-ID deduplication, pinned exclusion, group preservation, automatic regex deduplication.');
 })().catch(error=>{console.error(error);process.exitCode=1;}).finally(async()=>{
     if(context) await context.close();
     if(profile) fs.rmSync(profile,{recursive:true,force:true});

@@ -42,7 +42,7 @@
     "message": "关闭重复标签页，保留最新打开的"
   },
   "dedupeHelp": {
-    "message": "在每个标签组或未分组区域内，按完整网址去重；固定标签页启用排序时单独处理。"
+    "message": "在每个标签组或未分组区域内，按所选规则去重；固定标签页启用排序时单独处理。"
   },
   "customOptions": {
     "message": "仅用于自定义排序"
@@ -136,5 +136,71 @@
   },
   "settings": {
     "message": "打开设置"
+  },
+  "dedupeSettings": {
+    "message": "去重设置"
+  },
+  "dedupeMode": {
+    "message": "去重规则"
+  },
+  "dedupeExact": {
+    "message": "精确网址"
+  },
+  "dedupeRegex": {
+    "message": "正则表达式"
+  },
+  "regexRules": {
+    "message": "正则规则"
+  },
+  "regexHelp": {
+    "message": "按从上到下的第一条匹配规则替换网址，用结果判断重复；未匹配或替换结果为空时使用原网址。实际网址不变。输入 JavaScript 正则正文，不含 / 分隔符；替换支持 $1、$2 等捕获组。"
+  },
+  "addRule": {
+    "message": "添加规则"
+  },
+  "bilibiliRule": {
+    "message": "添加 B 站首页示例"
+  },
+  "rulePattern": {
+    "message": "匹配正则"
+  },
+  "ruleReplacement": {
+    "message": "替换为"
+  },
+  "ruleFlags": {
+    "message": "标志（可空：g i m s u）"
+  },
+  "moveRuleUp": {
+    "message": "上移"
+  },
+  "moveRuleDown": {
+    "message": "下移"
+  },
+  "removeRule": {
+    "message": "删除"
+  },
+  "testRules": {
+    "message": "测试规则"
+  },
+  "testUrls": {
+    "message": "测试网址（每行一个；使用当前未保存的规则，不会关闭标签页）"
+  },
+  "invalidRule": {
+    "message": "请输入有效的正则表达式和标志（仅支持 g i m s u，不可重复）。"
+  },
+  "invalidTestUrl": {
+    "message": "无效网址"
+  },
+  "noRuleMatch": {
+    "message": "未匹配规则，使用完整网址"
+  },
+  "matchedRule": {
+    "message": "命中规则"
+  },
+  "duplicateGroup": {
+    "message": "重复组"
+  },
+  "ruleLabel": {
+    "message": "规则"
   }
 }

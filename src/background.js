@@ -2,6 +2,7 @@
 // Modified by tongsun99, 2026-02-20 and 2026-10-21. GPL-3.0; see LICENSE and NOTICE.
 // See https://publicsuffix.org and https://github.com/lupomontero/psl for psl library details
 import './psl.min.js';
+import { compileDedupeRules, normalizeForDedupe } from './dedupe-rules.js';
 
 'use strict';
 
@@ -122,6 +123,7 @@ function isSuspended(tab) {
 
 // One-time installation and v0.4.0 upgrade handlers...
 chrome.runtime.onInstalled.addListener(function (details) {
+    refreshToolbarIcon();
 
     var thisVersion = chrome.runtime.getManifest().version;
     if (details.reason == "install") {
@@ -140,6 +142,16 @@ chrome.runtime.onInstalled.addListener(function (details) {
     // Do not inherit the upstream project's uninstall feedback destination.
     chrome.runtime.setUninstallURL('');
 })
+
+// Re-publish the bitmap after reloads: some Chromium-based toolbars retain
+// the action button but fail to repaint its manifest icon after an update.
+async function refreshToolbarIcon() {
+    try {
+        await chrome.action.setIcon({ path: chrome.runtime.getManifest().action.default_icon });
+    } catch (error) {
+        console.warn('Unable to refresh toolbar icon', error);
+    }
+}
 
 // Initialize auto-sort feature when service worker starts
 // Also handles service worker resumption after Chrome termination
@@ -194,6 +206,7 @@ function triggerAutoSortIfEnabled() {
 
 // Initialize auto-sort when service worker starts
 initializeAutoSort();
+refreshToolbarIcon();
 
 // Separate windows must be sorted separately - this is to prevent undesired accidental sorting in other windows...
 async function sortTabGroups() {
@@ -205,7 +218,9 @@ async function sortTabGroups() {
         groupSuspendedTabs: false,
         tabSuspenderExtensionId: THE_MARVELLOUS_SUSPENDER_EXTENSION_ID,
         sortPinnedTabs: false,
-        dedupeTabs: false
+        dedupeTabs: false,
+        dedupeMode: 'exact',
+        dedupeRules: []
     });
 
     // I believe this was unnecessary in manifest v2, IIRC, and that the "default window" worked as expected though that's not the case in manifest v3.
@@ -271,10 +286,19 @@ async function sortTabs(tabs, groupId, settings) {
         // Convert array of tabs to array of tab IDs, deduping tabs (in current window) if enabled in settings...
         var tabIds = []
         if (settings.dedupeTabs) {
+            let rules = [];
+            if (settings.dedupeMode === 'regex') {
+                try {
+                    rules = compileDedupeRules(settings.dedupeRules);
+                } catch {
+                    // Invalid synced rules fall back to exact URL matching.
+                    rules = [];
+                }
+            }
             // Build a map of URL -> array of tabs with that URL
             var urlToTabs = new Map();
             tabs.forEach(tab => {
-                var url = tabToUrl(tab).href;
+                var url = normalizeForDedupe(tabToUrl(tab).href, rules).key;
                 if (!urlToTabs.has(url)) {
                     urlToTabs.set(url, []);
                 }

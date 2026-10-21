@@ -13,5 +13,5 @@ draw.rounded_rectangle((108, 192, 412, 416), radius=28, fill='white')
 for index, width in enumerate([116, 164, 212]):
     y = 238 + index * 54
     draw.rounded_rectangle((152, y, 152 + width, y + 19), radius=9, fill='#315ed8')
-for size in [16, 48, 128]:
+for size in [16, 32, 48, 128]:
     image.resize((size, size), Image.Resampling.LANCZOS).save(root / f'{size}.png')

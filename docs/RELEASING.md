@@ -23,11 +23,15 @@ Native extension smoke checks: `node tests/extension.cjs` uses a disposable prof
 ## 上架前 / Before submission
 
 - 准备 Chrome Web Store 开发者账号并开启两步验证。Register a developer account with 2-Step Verification.
-- 确定最终源码仓库（计划名 `super-tab-sorter-next`）；公开本次发布的完整源码及 `dist/*-source.zip`，为此版本建立 tag，并在商店说明中链接源码下载。不要链接未包含本次改动的旧版本。当前工作没有推送，也没有修改 Git remote。Publish the exact corresponding source, including scripts and dependency sources, and link its download in the listing. No push or remote change has been performed.
-- 在项目公开网址托管 `PRIVACY.md`，将可访问的政策 URL 填入商店隐私政策字段。Host the policy at a public URL and enter it in the dashboard.
+- 源码仓库为 https://github.com/tongsun99/super-tab-sorter-next 。公开本次发布的完整源码，为此版本建立 `v0.1.0` tag，并在商店说明中链接对应版本源码下载。不要链接未包含本次改动的旧版本。Publish the exact corresponding source, including scripts and dependency sources, tag the release, and link its download in the listing.
+- 隐私政策网址为 https://github.com/tongsun99/super-tab-sorter-next/blob/master/PRIVACY.md 。公开仓库后检查该链接无需登录即可访问，再填入商店隐私政策字段。Verify that the policy is publicly accessible without signing in and enter its URL in the dashboard.
 - 添加本版本的实际截图（例如 1280×800）及图标；不要沿用原版的商店链接、评价、安装量或作者身份。Add actual screenshots and use Next's identity.
 - 使用下方的单一用途、权限说明和双语描述。按实际行为填写隐私披露：扩展会在本地访问网址、标题等浏览活动，不向开发者传输；偏好通过 Chrome 同步。不能因为不上传数据就忽略访问数据的披露。Complete privacy disclosures based on local access and Chrome preference sync.
 - 上传 `dist/super-tab-sorter-next-v0.1.0.zip`，不要上传源码包。提交审核不代表保证获批。Upload the store archive, not the source archive; approval is subject to review.
+
+商店字段及素材清单见 [STORE_LISTING.md](STORE_LISTING.md)。正式公开仓库、接受开发者协议、付款以及提交审核／发布的最终确认由发布者手动完成。
+
+See [STORE_LISTING.md](STORE_LISTING.md) for the listing fields and assets. The publisher manually confirms repository visibility, developer agreements, payments, and review submission/publication.
 
 ## 商店描述 / Listing copy
 

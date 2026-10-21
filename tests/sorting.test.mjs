@@ -5,20 +5,35 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 
 function engine() {
-    const removed = [], moved = [], groups = [], timers = [], alarms = [];
+    const removed = [], moved = [], groups = [], timers = [], alarms = [], icons = [];
     const event = () => ({ listeners: [], addListener(fn) { this.listeners.push(fn); } });
     const chrome = {
-        runtime: { onMessage: event(), onInstalled: event() },
+        runtime: { onMessage: event(), onInstalled: event(), getManifest() {
+            return JSON.parse(fs.readFileSync(new URL('../src/manifest.json', import.meta.url), 'utf8'));
+        }, setUninstallURL() {} },
+        action: { async setIcon(value) { icons.push(value); } },
         tabs: { onCreated: event(), onUpdated: event(), onRemoved: event(), remove(ids) { removed.push(...ids); }, move(ids) { moved.push([...ids]); }, group(value) { groups.push(value); } },
-        storage: { sync: { get(defaults, callback) { if (callback) callback(defaults); else return Promise.resolve(defaults); } }, onChanged: event() },
+        storage: { sync: { get(defaults, callback) { if (callback) callback(defaults); else return Promise.resolve(defaults); }, set(value, callback) { callback?.(); } }, onChanged: event() },
         alarms: { onAlarm: event(), clear() {}, create(...args) { alarms.push(args); } }
     };
     const context = vm.createContext({ chrome, URL, URLSearchParams, console, setTimeout() {}, clearTimeout() {}, setInterval(fn, ms) { timers.push(ms); return 1; }, clearInterval() {} });
     vm.runInContext(fs.readFileSync(new URL('../src/psl.min.js', import.meta.url), 'utf8'), context);
-    vm.runInContext(fs.readFileSync(new URL('../src/background.js', import.meta.url), 'utf8').replace("import './psl.min.js';", ''), context);
-    return { context, removed, moved, groups, chrome, timers, alarms };
+    vm.runInContext(fs.readFileSync(new URL('../src/dedupe-rules.js', import.meta.url), 'utf8').replaceAll('export ', ''), context);
+    vm.runInContext(fs.readFileSync(new URL('../src/background.js', import.meta.url), 'utf8').replace(/^import .*;$/gm, ''), context);
+    return { context, removed, moved, groups, chrome, timers, alarms, icons };
 }
 const tab = (id, url, title = '', extra = {}) => ({ id, url, title, index: id - 1, pinned: false, groupId: -1, ...extra });
+
+test('toolbar icon is republished on worker startup and extension updates', async () => {
+    const { chrome, icons } = engine();
+    assert.equal(icons.length, 1);
+    chrome.runtime.onInstalled.listeners[0]({reason:'update'});
+    assert.equal(icons.length, 2);
+    for (const {path} of icons) {
+        assert.ok(path['16'] && path['32']);
+        for (const file of Object.values(path)) assert.ok(fs.existsSync(new URL('../src/'+file, import.meta.url)));
+    }
+});
 
 test('URL sort retains upstream public-suffix and component ordering', () => {
     const { context } = engine();
@@ -68,6 +83,27 @@ test('deduplication does not close duplicates in another processing batch', asyn
     const { context, removed } = engine();
     for (const id of [1,2]) await context.sortTabs([tab(id,'https://a.com/')], -1, {sortBy:'url',dedupeTabs:true});
     assert.deepEqual(removed, []);
+});
+test('regex deduplication keeps newest tab without changing URLs or crossing batches', async () => {
+    const { context, removed, moved } = engine();
+    const rules = vm.runInContext('[BILIBILI_HOME_RULE]', context);
+    const settings = {sortBy:'url', dedupeTabs:true, dedupeMode:'regex', dedupeRules:rules};
+    const tabs = [tab(1,'https://www.bilibili.com/'),tab(3,'https://www.bilibili.com/?spm_id_from=333.1007.0.0'),
+        tab(4,'https://www.bilibili.com/video/BV123/?p=1'),tab(5,'https://www.bilibili.com/video/BV123/?p=2')];
+    await context.sortTabs([...tabs], -1, settings);
+    assert.deepEqual(removed, [1]);
+    assert.ok(moved[0].includes(3) && moved[0].includes(4) && moved[0].includes(5));
+    assert.equal(tabs[1].url, 'https://www.bilibili.com/?spm_id_from=333.1007.0.0');
+    await context.sortTabs([tab(6,'https://www.bilibili.com/')], 7, settings);
+    assert.deepEqual(removed, [1]);
+});
+test('invalid synced regex rules and exact mode retain exact URL deduplication', async () => {
+    for (const dedupeMode of ['regex','exact']) {
+        const { context, removed } = engine();
+        await context.sortTabs([tab(1,'https://a.com/'),tab(2,'https://a.com/'),tab(3,'https://a.com/?x=1')], -1,
+            {sortBy:'url',dedupeTabs:true,dedupeMode,dedupeRules:[{pattern:'[',replacement:'',flags:''}]});
+        assert.deepEqual(removed, [1]);
+    }
 });
 test('auto-sort retains second timers and rounded minute alarms', () => {
     const { context, chrome, timers, alarms } = engine();
